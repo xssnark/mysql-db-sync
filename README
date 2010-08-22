@@ -1,0 +1,49 @@
+20100821 Xavier Snark xssnark@gmail.com
+
+This is taken from the usage statement. Please refer to the usage statement for the 
+most comprehensive and up to date information.
+
+
+A simple, limited shell script for synchronizing MySQL databases between servers.
+This script uses my.cnf defaults files for managing the migration of data between the source
+and destination databases. An example defaults file mmay contain:
+
+	[client]
+	host=your_db_hostname
+	database=my_database
+	user=my_username
+	password="my_secret_passord"
+
+To use, create two of these files, one for the source database
+(perhaps named "source_db_config") and one for the destination (perhaps named "dest_db_config").
+Call this script with these config files as arguments, for example:
+
+	$0 -v -n -s source_db_config -d dest_db_config
+
+Note this command would operate in dry-run mode and not actually perform any operations.
+
+Required Arguments:
+-s or --source-config my.cnf-file
+-d or --destination-config my.cnf-file
+	This is to specify a source and destination my.cnf file. This must be used to pass username,
+	password, host, and database settings for accessing the servers.
+Optional Arguments
+-o
+--dump-database
+	This specifies the specific database name to dump from the source host. (mysqldump will NOT use
+	database specification in the config files, at least not that I've been able to determine. It
+	must have database names passed on the command line.)
+	If this is omitted, the script will attempt to determine the database for the source database
+	by connecting to the source and issuing a select DATABASE() and then capturing the output.
+	This argument only affects the SOURCE database, the destination will be the database configured
+	in the destination defaults file.
+-v
+--verbose
+	Spew a lot of messages about what's happening.
+-l
+--verbose-mysql
+	Run MySQL commands in verbose mode. (Mnemonic: "loud"; Independent of -v argument)
+-n
+--dry-run
+	Don't perform the cleaning, dump, or import operations.
+	
