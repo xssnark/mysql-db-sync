@@ -114,7 +114,7 @@ test ! -e $DST_CNF && echo "ERROR: Unable to locate destination configuration fi
 # of nonsense is used to tease out the database
 identify_dump_db() {
 	test $VERBOSE && echo "Identifying dump database..."
-	DUMPDB=`echo 'select DATABASE()' | mysql --defaults-file=$DST_CNF | grep -v DATABASE`
+	DUMPDB=`echo 'select DATABASE()' | mysql --defaults-file=$SRC_CNF | grep -v DATABASE`
 	test -z $DUMPDB && echo "ERROR: Unable to determine name of dump database, exiting." && exit 2
 	test $VERBOSE && echo "dump database is: $DUMPDB"
 }
