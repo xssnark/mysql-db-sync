@@ -55,16 +55,6 @@ Optional Arguments
 EOUSAGE
 }
 
-
-# Make sure then pass at least two arguments
-# (-r is optional)
-# This is nearly useless 
-if [ $# -lt 4 ]; then
-	echo "Invalid arguments supplied (At least 2 are required, but you supplied $#)."
-	usage
-	exit 1
-fi
-
 # Get arguments, if any
 while [ ! -z $1 ]; do
 	case $1
