@@ -105,10 +105,10 @@ while [ ! -z $1 ]; do
 	esac
 done
 
-test -z $SRC_CNF && (echo "ERROR: Empty source config file: $SRC_CNF" && exit 1)
-test -z $DST_CNF && (echo "ERROR: Empty destination config file: $DST_CNF" && exit 1)
-test ! -e $SRC_CNF && echo "ERROR: Unable to locate source configuration file: $SRC_CNF" && exit 1
-test ! -e $DST_CNF && echo "ERROR: Unable to locate destination configuration file: $DST_CNF" && exit 1
+test -z $SRC_CNF && { echo "ERROR: Empty source config file: $SRC_CNF" && exit 1; }
+test -z $DST_CNF && { echo "ERROR: Empty destination config file: $DST_CNF" && exit 1; }
+test ! -e $SRC_CNF && { echo "ERROR: Unable to locate source configuration file: $SRC_CNF" && exit 1; }
+test ! -e $DST_CNF && { echo "ERROR: Unable to locate destination configuration file: $DST_CNF" && exit 1; }
 
 # Because mysqldump won't use the database configured in the defaults file, this bit
 # of nonsense is used to tease out the database
