@@ -33,6 +33,9 @@ Required Arguments:
 		This is to specify a source and destination my.cnf file. This must be used to pass username,
 		password, host, and database settings for accessing the servers.
 Optional Arguments
+	-a
+        --after-sql
+                This is to specify a sql scripts file to execute in destination server after sync finished.	
 	-o
 	--dump-database
 		This specifies the specific database name to dump from the source host. (mysqldump will NOT use
@@ -75,6 +78,10 @@ while [ ! -z $1 ]; do
 				test $VERBOSE && echo "Setting destination config file to $DST_CNF"
 				shift 2
 				;;
+		-a|--after-sql) 
+                                AFTER_SQL=$2                                
+				shift 2
+                                ;;
 		-o|--dump-database)
 				DUMPDB=$2
 				test $VERBOSE && echo "Using explicit dump database specification: $DUMPDB"
@@ -145,3 +152,4 @@ cleandb $DST_CNF
 
 import_pipe $SRC_CNF $DST_CNF
 
+test -e $AFTER_SQL && echo "Execute sql scripts in after file: $AFTER_SQL" && cat $AFTER_SQL | mysql --defaults-file=$DST_CNF

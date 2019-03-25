@@ -28,6 +28,9 @@ Required Arguments:
 	This is to specify a source and destination my.cnf file. This must be used to pass username,
 	password, host, and database settings for accessing the servers.
 Optional Arguments
+-a
+--after-sql
+        This is to specify a sql scripts file to execute in destination server after sync finished.
 -o
 --dump-database
 	This specifies the specific database name to dump from the source host. (mysqldump will NOT use
